@@ -1,8 +1,15 @@
+rmdir /S /Q dist
+git submodule update --init --recursive
+git submodule update --remote
 cd rel-blog
-npm run build
-cd dist
+call npm install
+call npm run build
+move dist "../"
+cd "../dist"
 git init
 git add -A
 git commit -m 'deploy'
-git push -f git@github.com:IsGarrido/IsGarrido.github.io.git gh-pages
-cd -
+git remote add -t gh-pages origin https://github.com/IsGarrido/IsGarrido.github.io.git
+git checkout -b gh-pages
+git push --set-upstream origin gh-pages
+cd ..
